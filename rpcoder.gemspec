@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["jugyo", "Toshiyuki Hirooka"]
   s.date = %q{2011-04-25}
-  s.description = %q{Simple RPC generator for as3}
+  s.description = %q{Simple JSON HTTP RPC generator for as3}
   s.email = %q{toshi.hirooka@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -28,22 +28,6 @@ Gem::Specification.new do |s|
     "lib/rpcoder/type.rb",
     "lib/templates/API.erb",
     "lib/templates/Type.erb",
-    "mock/build.xml",
-    "mock/lib/as3corelib.swc",
-    "mock/lib/flexUnitTasks-4.0.0.jar",
-    "mock/lib/flexunit-4.0.0.swc",
-    "mock/lib/flexunit-cilistener-4.0.0.swc",
-    "mock/lib/flexunit-flexcoverlistener-4.0.0.swc",
-    "mock/lib/flexunit-uilistener-4.0.0.swc",
-    "mock/lib/hamcrest-as3-1.1.1.swc",
-    "mock/lib/mockolate-0.9.3.swc",
-    "mock/mock_rpcoder.rb",
-    "mock/mock_server.rb",
-    "mock/src/Mock.mxml",
-    "mock/src_test/FlexUnitRunner.mxml",
-    "mock/src_test/TestSuite.as",
-    "mock/src_test/com/oneup/rpcoder/test/APITest.as",
-    "mock/src_test/com/oneup/rpcoder/test/TypeTest.as",
     "rpcoder.gemspec",
     "spec/fixtures/foo/bar/API.as",
     "spec/fixtures/foo/bar/Mail.as",
@@ -66,27 +50,27 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<sinatra>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
       s.add_development_dependency(%q<rake>, [">= 0"])
+      s.add_development_dependency(%q<sinatra>, [">= 0"])
     else
-      s.add_dependency(%q<sinatra>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
       s.add_dependency(%q<rcov>, [">= 0"])
       s.add_dependency(%q<rake>, [">= 0"])
+      s.add_dependency(%q<sinatra>, [">= 0"])
     end
   else
-    s.add_dependency(%q<sinatra>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
     s.add_dependency(%q<rcov>, [">= 0"])
     s.add_dependency(%q<rake>, [">= 0"])
+    s.add_dependency(%q<sinatra>, [">= 0"])
   end
 end
 
