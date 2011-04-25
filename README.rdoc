@@ -1,0 +1,21 @@
+= rpcoder
+
+mock/mock_rpcoder.rb を見ると使い方がなんとなくわかると思います。
+
+== Mock API の作成
+
+  $ ruby mock/mock_rpcoder.rb
+
+== Mock swf のビルド
+
+  $ cd mock
+  $ ant
+
+== Mock Server の起動
+
+  $ ruby mock/mock_server.rb
+
+== as3 のテストの実行
+
+  $ cd spec
+  $ ant

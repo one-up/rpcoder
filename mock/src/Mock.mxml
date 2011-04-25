@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark" 
+               xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+
+    <fx:Script>
+        <![CDATA[
+            import com.oneup.rpcoder.mock.API
+            import com.oneup.rpcoder.mock.Mail
+            import mx.rpc.events.FaultEvent;
+
+            protected function button1_clickHandler(event:MouseEvent):void
+            {
+                var api:API = new API("http://localhost:4567/");
+                api.getMail(
+                    1,
+                    function(result:Mail):void {
+                        outputText.text += "getMail => " + result.toString() + "\n";
+                    },
+                    function(e:FaultEvent):void {
+                        outputText.text += e.statusCode + ": " + e.fault.content + "\n"
+                    }
+                );
+            }
+
+            protected function button2_clickHandler(event:MouseEvent):void
+            {
+                var api:API = new API("http://localhost:4567/");
+                api.sendMail('hello', 'hello, I\'m foo',
+                    function():void {
+                        outputText.text += "mail has been sent\n"
+                    },
+                    function(e:FaultEvent):void {
+                        outputText.text += e.statusCode + ": " + e.fault.content + "\n"
+                    }
+                );
+            }
+
+            protected function button3_clickHandler(event:MouseEvent):void
+            {
+                var api:API = new API("http://localhost:4567/");
+                api.errorHandler = function(e:FaultEvent, t:Object):void {
+                  outputText.text += e.statusCode + ": " + e.fault.content + "\n"
+                }
+                api.getError(
+                    500,
+                    function():void {},
+                    function(e:FaultEvent):void {}
+                );
+            }
+        ]]>
+    </fx:Script>
+
+    <fx:Declarations>
+        <!-- Place non-visual elements (e.g., services, value objects) here -->
+    </fx:Declarations>
+
+    <s:Button x="10" y="10" label="getMail" click="button1_clickHandler(event)"/>
+    <s:Button x="100" y="10" label="sendMail" click="button2_clickHandler(event)"/>
+    <s:Button x="200" y="10" label="getError" click="button3_clickHandler(event)"/>
+    <s:TextArea x="10" y="39" width="300" height="300" editable="false" id="outputText"/>
+</s:Application>
