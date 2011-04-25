@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["jugyo", "Toshiyuki Hirooka"]
   s.date = %q{2011-04-25}
-  s.description = %q{TODO: longer description of your gem}
+  s.description = %q{Simple RPC generator for as3}
   s.email = %q{toshi.hirooka@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -44,6 +44,7 @@ Gem::Specification.new do |s|
     "mock/src_test/TestSuite.as",
     "mock/src_test/com/oneup/rpcoder/test/APITest.as",
     "mock/src_test/com/oneup/rpcoder/test/TypeTest.as",
+    "rpcoder.gemspec",
     "spec/fixtures/foo/bar/API.as",
     "spec/fixtures/foo/bar/Mail.as",
     "spec/rpcoder/function_spec.rb",
@@ -54,7 +55,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.7.2}
-  s.summary = %q{TODO: one-line summary of your gem}
+  s.summary = %q{Simple RPC generator for as3}
   s.test_files = [
     "spec/rpcoder/function_spec.rb",
     "spec/rpcoder_spec.rb",
