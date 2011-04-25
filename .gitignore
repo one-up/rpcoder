@@ -3,3 +3,4 @@ mock/bin/
 mock/src/com/oneup/rpcoder/mock/API.as
 mock/src/com/oneup/rpcoder/mock/Mail.as
 mock/report/
+pkg/
