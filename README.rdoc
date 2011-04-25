@@ -1,21 +1,41 @@
 = rpcoder
 
-mock/mock_rpcoder.rb を見ると使い方がなんとなくわかると思います。
+== installation
 
-== Mock API の作成
+  $ gem install rpcoder
 
-  $ ruby mock/mock_rpcoder.rb
+== generating AS3 RPC code
 
-== Mock swf のビルド
-
-  $ cd mock
-  $ ant
-
-== Mock Server の起動
-
-  $ ruby mock/mock_server.rb
-
-== as3 のテストの実行
-
-  $ cd spec
-  $ ant
+  #!/usr/bin/env ruby
+  
+  require 'rpcoder'
+  require 'fileutils'
+  
+  RPCoder.name_space = 'foo.bar.rpc'
+  RPCoder.api_class_name = 'RPC'
+  
+  RPCoder.type "Mail" do |t|
+    t.add_field :subject, :String
+    t.add_field :body,    :String
+  end
+  
+  RPCoder.function "getMail" do |f|
+    f.path        = "/mails/:id" # => ("/mails/" + id)
+    f.method      = "GET"
+    f.return_type = "Mail"
+    f.add_param  :id, "int"
+    f.description = 'メールを取得'
+  end
+  
+  RPCoder.function "sendMail" do |f|
+    f.path        = "/mails" # => ("/mails/" + id)
+    f.method      = "POST"
+    f.return_type = "void"
+    f.add_param  :subject, "String"
+    f.add_param  :body,    "String"
+    f.description = 'メールを送信'
+  end
+  
+  # output codes
+  dir = File.expand_path('src', File.dirname(__FILE__))
+  RPCoder.export(dir)
