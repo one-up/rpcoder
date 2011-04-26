@@ -105,8 +105,14 @@ package <%= name_space %>
             request("<%= func.method %>", <%= func.path_parts.join(' + ') %>, params,
                 function(e:ResultEvent, t:Object):void {
                     t = t; // FIXME: for removing warning
-                    <%- if func.return_type && func.return_type != 'void' -%>
-                    success(new <%= func.return_type %>(JSON.decode(e.result as String)));
+                    <%- if func.return_type && func.return_type == 'Array' -%>
+                    var hash:Object = JSON.decode(e.result as String);
+                    var array:Array = new Array();
+                    for (var elem:Object in hash)
+                        array.push(<%= func.return_type_instance_creator('elem') %>);
+                    success(array);
+                    <%- elsif func.return_type != 'void' -%>
+                    success(<%= func.return_type_instance_creator('JSON.decode(e.result as String)') %>);
                     <%- else -%>
                     success();
                     <%- end -%>

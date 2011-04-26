@@ -20,7 +20,7 @@ end
 RPCoder.function "getMail" do |f|
   f.path        = "/mails/:id" # => ("/mails/" + id)
   f.method      = "GET"
-  f.return_type = "Mail"
+  f.set_return_type "Mail"
   f.add_param  :id, "int"
   f.description = 'メールを取得'
 end
@@ -28,7 +28,7 @@ end
 RPCoder.function "sendMail" do |f|
   f.path        = "/mails" # => ("/mails/" + id)
   f.method      = "POST"
-  f.return_type = "void"
+  f.set_return_type "void"
   f.add_param  :subject, "String"
   f.add_param  :body,    "String"
   f.description = 'メールを送信'
@@ -37,7 +37,7 @@ end
 RPCoder.function "getError" do |f|
   f.path        = "/error/:statusCode"
   f.method      = "GET"
-  f.return_type = "void"
+  f.set_return_type "void"
   f.add_param  :statusCode, :int
   f.description = 'Get Error'
 end

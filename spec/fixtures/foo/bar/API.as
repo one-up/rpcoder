@@ -111,6 +111,31 @@ package foo.bar
             );
         }
 
+        /**
+        * get mails
+        *
+        * @success:Function
+        * @error:Function
+        */
+        public function getMails(success:Function, error:Function):void
+        {
+            var params:Object = {};
+            request("GET", "/mails/", params,
+                function(e:ResultEvent, t:Object):void {
+                    t = t; // FIXME: for removing warning
+                    var hash:Object = JSON.decode(e.result as String);
+                    var array:Array = new Array();
+                    for (var elem:Object in hash)
+                        array.push(new Mail(elem));
+                    success(array);
+                },
+                function(e:FaultEvent, t:Object):void {
+                    t = t; // FIXME: for removing warning
+                    error(e);
+                }
+            );
+        }
+
         public function request(method:String, path:String, params:Object, success:Function, error:Function):void
         {
             var service:HTTPService = createHttpService(this.baseUrl);

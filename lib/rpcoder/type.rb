@@ -2,6 +2,10 @@ module RPCoder
   class Type
     attr_accessor :name, :description
 
+    def self.original_types
+      [:int, :String, :Boolean, :Array]
+    end
+
     def fields
       @fields ||= []
     end
@@ -19,7 +23,7 @@ module RPCoder
       end
 
       def original_type?
-        original_types.include?(@type.to_sym)
+        Type.original_types.include?(@type.to_sym)
       end
 
       def array?
@@ -28,10 +32,6 @@ module RPCoder
 
       def array_field
         Field.new(name, options[:array_type])
-      end
-
-      def original_types
-        [:int, :String, :Boolean, :Array]
       end
 
       def instance_creator(elem = nil, options = {})

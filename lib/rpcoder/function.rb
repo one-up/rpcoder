@@ -29,6 +29,21 @@ module RPCoder
       params.select { |i| !param_strs.include?(i.name.to_s)  }
     end
 
+    def set_return_type(type, options = {})
+      @return_type = type
+      @return_type_options = options
+    end
+
+    def return_type_instance_creator(elem)
+      type = @return_type
+      type = @return_type_options[:array_type] if @return_type == 'Array'
+      if Type.original_types.include?(type)
+        elem
+      else
+        "new #{type}(#{elem})"
+      end
+    end
+
     class Param
       attr_accessor :name, :type, :options
       def initialize(name, type, options = {})
