@@ -125,7 +125,7 @@ package foo.bar
                     t = t; // FIXME: for removing warning
                     var hash:Object = JSON.decode(e.result as String);
                     var array:Array = new Array();
-                    for (var elem:Object in hash)
+                    for each (var elem:Object in hash)
                         array.push(new Mail(elem));
                     success(array);
                 },
