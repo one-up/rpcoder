@@ -22,15 +22,22 @@
   RPCoder.function "getMail" do |f|
     f.path        = "/mails/:id" # => ("/mails/" + id)
     f.method      = "GET"
-    f.return_type = "Mail"
+    f.set_return_type "Mail"
     f.add_param  :id, "int"
     f.description = 'メールを取得'
   end
   
+  RPCoder.function "getMails" do |f|
+    f.path        = "/mails"
+    f.method      = "GET"
+    f.set_return_type "Array", {:array_type => "Mail"}
+    f.description = 'メールを送信'
+  end
+  
   RPCoder.function "sendMail" do |f|
-    f.path        = "/mails" # => ("/mails/" + id)
+    f.path        = "/mails/create"
     f.method      = "POST"
-    f.return_type = "void"
+    f.set_return_type "void"
     f.add_param  :subject, "String"
     f.add_param  :body,    "String"
     f.description = 'メールを送信'
@@ -39,3 +46,4 @@
   # output codes
   dir = File.expand_path('src', File.dirname(__FILE__))
   RPCoder.export(dir)
+
