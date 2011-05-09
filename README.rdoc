@@ -4,7 +4,7 @@
 
   $ gem install rpcoder
 
-== generating AS3 RPC code
+== code for AS3 RPC
 
   #!/usr/bin/env ruby
   
@@ -46,4 +46,13 @@
   # output codes
   dir = File.expand_path('src', File.dirname(__FILE__))
   RPCoder.export(dir)
+
+== code for using RPC
+
+  var rpc:RPC = new RPC('http://localhost:3000');
+  rpc.getMail(1, function():void {
+  	// success
+  }, function():void {
+  	// failure
+  })
 
