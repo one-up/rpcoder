@@ -108,8 +108,12 @@ package <%= name_space %>
                     <%- if func.return_type && func.return_type == 'Array' -%>
                     var hash:Object = JSON.decode(e.result as String);
                     var array:Array = new Array();
-                    for each (var elem:Object in hash)
-                        array.push(<%= func.return_type_instance_creator('elem') %>);
+                    <%-
+                      @elem_count ||= 0
+                      @elem_count += 1
+                    -%>
+                    for each (var elem<%= @elem_count %>:Object in hash)
+                        array.push(<%= func.return_type_instance_creator("elem#{@elem_count}") %>);
                     success(array);
                     <%- elsif func.return_type != 'void' -%>
                     success(<%= func.return_type_instance_creator('JSON.decode(e.result as String)') %>);
