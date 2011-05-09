@@ -22,7 +22,7 @@
   RPCoder.function "getMail" do |f|
     f.path        = "/mails/:id" # => ("/mails/" + id)
     f.method      = "GET"
-    f.set_return_type "Mail"
+    f.add_return_type :mail, "Mail"
     f.add_param  :id, "int"
     f.description = 'メールを取得'
   end
@@ -30,14 +30,13 @@
   RPCoder.function "getMails" do |f|
     f.path        = "/mails"
     f.method      = "GET"
-    f.set_return_type "Array", {:array_type => "Mail"}
+    f.add_return_type :mails, "Mail", {:array? => true}
     f.description = 'メールを送信'
   end
   
   RPCoder.function "sendMail" do |f|
     f.path        = "/mails/create"
     f.method      = "POST"
-    f.set_return_type "void"
     f.add_param  :subject, "String"
     f.add_param  :body,    "String"
     f.description = 'メールを送信'
@@ -50,8 +49,18 @@
 == code for using RPC
 
   var rpc:RPC = new RPC('http://localhost:3000');
+  
   rpc.getMail(1, function(mail:Mail):void {
   	// success
+  }, function():void {
+  	// failure
+  })
+  
+  rpc.getMails(function(mails:Array):void {
+  	// success
+	for each (var mail as Mail in mails)
+	{
+	}
   }, function():void {
   	// failure
   })
