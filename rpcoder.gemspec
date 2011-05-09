@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rpcoder}
-  s.version = "0.0.4"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["jugyo", "Toshiyuki Hirooka"]
@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
     "VERSION",
     "lib/rpcoder.rb",
     "lib/rpcoder/function.rb",
+    "lib/rpcoder/param.rb",
     "lib/rpcoder/type.rb",
     "lib/templates/API.erb",
     "lib/templates/Type.erb",
@@ -32,6 +33,7 @@ Gem::Specification.new do |s|
     "spec/fixtures/foo/bar/API.as",
     "spec/fixtures/foo/bar/Mail.as",
     "spec/rpcoder/function_spec.rb",
+    "spec/rpcoder/param_spec.rb",
     "spec/rpcoder_spec.rb",
     "spec/spec_helper.rb"
   ]
@@ -42,6 +44,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Simple RPC generator for as3}
   s.test_files = [
     "spec/rpcoder/function_spec.rb",
+    "spec/rpcoder/param_spec.rb",
     "spec/rpcoder_spec.rb",
     "spec/spec_helper.rb"
   ]
