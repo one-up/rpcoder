@@ -23,9 +23,9 @@ package <%= name_space %>
                 <%- if field.array? -%>
                 _<%= field.name %> = new Array();
                 for each(var elem:Object in object['<%= field.name %>'])
-                    _<%= field.name %>.push(<%= field.array_field.instance_creator(:elem, {:direct => true}) %>);
+                    _<%= field.name %>.push(<%= field.instance_creator(:elem) %>);
                 <%- else -%>
-                _<%= field.name %> = <%= field.instance_creator %>;
+                _<%= field.name %> = <%= field.instance_creator(field.name, {:object? => true}) %>;
                 <%- end -%>
                 <%- end -%>
             }

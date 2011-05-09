@@ -12,7 +12,7 @@ describe "RPCoder" do
         f.path        = "/mails/:id" # => ("/mails/" + id)
         f.description = 'get mail'
         f.method      = "GET"
-        f.set_return_type "Mail"
+        f.add_return_type :mail, "Mail"
         f.add_param  :id, :int
         f.add_param  :foo, :String, :expect => ["A","B"]
         f.add_param  :bar, :Array
@@ -23,7 +23,8 @@ describe "RPCoder" do
         f.path        = "/mails/"
         f.description = 'get mails'
         f.method      = "GET"
-        f.set_return_type "Array", {:array_type => "Mail"}
+        f.add_return_type :mails, "Mail", {:array? => true}
+        f.add_return_type :count, "int"
       end
 
       RPCoder.type "Mail" do |t|

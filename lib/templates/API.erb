@@ -105,21 +105,29 @@ package <%= name_space %>
             request("<%= func.method %>", <%= func.path_parts.join(' + ') %>, params,
                 function(e:ResultEvent, t:Object):void {
                     t = t; // FIXME: for removing warning
-                    <%- if func.return_type && func.return_type == 'Array' -%>
                     var hash:Object = JSON.decode(e.result as String);
-                    var array:Array = new Array();
-                    <%-
-                      @elem_count ||= 0
-                      @elem_count += 1
-                    -%>
-                    for each (var elem<%= @elem_count %>:Object in hash)
-                        array.push(<%= func.return_type_instance_creator("elem#{@elem_count}") %>);
-                    success(array);
-                    <%- elsif func.return_type != 'void' -%>
-                    success(<%= func.return_type_instance_creator('JSON.decode(e.result as String)') %>);
-                    <%- else -%>
-                    success();
+
+                    <%- func.return_types.each do |param| -%>
+                    <%- if param.array? -%>
+                    var <%= param.name %>_list:Array = new Array();
+                    for each (var <%= param.name %>:Object in hash['<%= param.name %>'])
+                        <%= param.name %>_list.push(<%= param.instance_creator(param.name) %>);
                     <%- end -%>
+                    <%- end -%>
+
+                    <%-
+                      args = []
+                      if func.has_return_type?
+                        args = func.return_types.map {|param|
+                          if param.array?
+                            "#{param.name}_list"
+                          else
+                            param.instance_creator("hash['#{param.name}']")
+                          end
+                        }
+                      end
+                    -%>
+                    success(<%= args.join(', ') %>);
                 },
                 function(e:FaultEvent, t:Object):void {
                     t = t; // FIXME: for removing warning

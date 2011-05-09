@@ -1,3 +1,5 @@
+require 'rpcoder/param'
+
 module RPCoder
   class Function
     PARAMS_IN_URL_RE = /:[\w\d]+/
@@ -5,6 +7,14 @@ module RPCoder
 
     def params
       @params ||= []
+    end
+
+    def return_types
+      @return_types ||= []
+    end
+
+    def has_return_type?
+      !return_types.empty?
     end
 
     def add_param(name, type, options = {})
@@ -29,28 +39,8 @@ module RPCoder
       params.select { |i| !param_strs.include?(i.name.to_s)  }
     end
 
-    def set_return_type(type, options = {})
-      @return_type = type
-      @return_type_options = options
-    end
-
-    def return_type_instance_creator(elem)
-      type = @return_type
-      type = @return_type_options[:array_type] if @return_type == 'Array'
-      if Type.original_types.include?(type)
-        elem
-      else
-        "new #{type}(#{elem})"
-      end
-    end
-
-    class Param
-      attr_accessor :name, :type, :options
-      def initialize(name, type, options = {})
-        @name = name
-        @type = type
-        @options = options
-      end
+    def add_return_type(name, type, options = {})
+      return_types << Param.new(name, type, options)
     end
   end
 end

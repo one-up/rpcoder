@@ -102,7 +102,10 @@ package foo.bar
             request("GET", "/mails/" + id, params,
                 function(e:ResultEvent, t:Object):void {
                     t = t; // FIXME: for removing warning
-                    success(new Mail(JSON.decode(e.result as String)));
+                    var hash:Object = JSON.decode(e.result as String);
+
+
+                    success(new Mail(hash['mail']));
                 },
                 function(e:FaultEvent, t:Object):void {
                     t = t; // FIXME: for removing warning
@@ -124,10 +127,12 @@ package foo.bar
                 function(e:ResultEvent, t:Object):void {
                     t = t; // FIXME: for removing warning
                     var hash:Object = JSON.decode(e.result as String);
-                    var array:Array = new Array();
-                    for each (var elem1:Object in hash)
-                        array.push(new Mail(elem1));
-                    success(array);
+
+                    var mails_list:Array = new Array();
+                    for each (var mails:Object in hash['mails'])
+                        mails_list.push(new Mail(mails));
+
+                    success(mails_list, hash['count']);
                 },
                 function(e:FaultEvent, t:Object):void {
                     t = t; // FIXME: for removing warning
