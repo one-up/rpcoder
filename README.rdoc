@@ -50,7 +50,7 @@
 == code for using RPC
 
   var rpc:RPC = new RPC('http://localhost:3000');
-  rpc.getMail(1, function():void {
+  rpc.getMail(1, function(mail:Mail):void {
   	// success
   }, function():void {
   	// failure
