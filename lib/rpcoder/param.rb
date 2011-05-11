@@ -15,6 +15,14 @@ module RPCoder
       options[:array?]
     end
 
+    def array_or_type
+      if array?
+        "Array"
+      else
+        type
+      end
+    end
+
     def original_type?
       Param.original_types.include?(type.to_sym)
     end

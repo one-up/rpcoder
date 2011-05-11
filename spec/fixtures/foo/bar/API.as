@@ -9,7 +9,7 @@ package foo.bar
     import mx.rpc.http.HTTPService;
     import com.adobe.serialization.json.JSON;
 
-    public class API
+    public class API implements APIInterface
     {
         public static const CONTINUE :int                        = 100;
         public static const SWITCHING_PROTOCOLS :int             = 101;

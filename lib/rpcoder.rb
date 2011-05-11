@@ -50,17 +50,27 @@ module RPCoder
       class_dir = dir_to_export_classes(dir)
       FileUtils.mkdir_p(class_dir)
 
-      export_functions(File.join(class_dir, api_class_name.split('.').last + ".as"))
+      [
+        {:path => File.join(class_dir, api_class_name.split('.').last + "Interface.as"), :content => render_functions_interface},
+        {:path => File.join(class_dir, api_class_name.split('.').last + ".as"), :content => render_functions},
+        {:path => File.join(class_dir, api_class_name.split('.').last + "Dummy.as"), :content => render_functions_dummy},
+      ].each do |hash|
+        puts "API: #{hash[:path]}"
+        File.open(hash[:path], "w") { |file| file << hash[:content] }
+      end
       types.each { |type| export_type(type, File.join(class_dir, "#{type.name}.as")) }
     end
 
-    def export_functions(path)
-      puts "API: #{path}"
-      File.open(path, "w") { |file| file << render_functions }
+    def render_functions_interface
+      render_erb('APIInterface.erb', binding)
     end
 
     def render_functions
       render_erb('API.erb', binding)
+    end
+
+    def render_functions_dummy
+      render_erb('APIDummy.erb', binding)
     end
 
     def export_type(type, path)

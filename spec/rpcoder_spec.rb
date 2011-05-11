@@ -38,8 +38,12 @@ describe "RPCoder" do
     it { RPCoder.types.size.should == 1 }
 
     it 'should render_functions' do
+      expected = File.read(File.expand_path('fixtures/foo/bar/APIInterface.as', File.dirname(__FILE__)))
+      RPCoder.render_functions_interface.should == expected
       expected = File.read(File.expand_path('fixtures/foo/bar/API.as', File.dirname(__FILE__)))
       RPCoder.render_functions.should == expected
+      expected = File.read(File.expand_path('fixtures/foo/bar/APIDummy.as', File.dirname(__FILE__)))
+      RPCoder.render_functions_dummy.should == expected
     end
 
     it 'should render_type' do

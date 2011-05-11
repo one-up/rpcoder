@@ -5,11 +5,11 @@ package <%= name_space %>
     public class <%= type.name %>
     {
         <%- type.fields.each do |field| -%>
-        private var _<%= field.name %>:<%= field.type %>;
+        private var _<%= field.name %>:<%= field.array_or_type %>;
         <%- end -%>
 
         <%- type.fields.each do |field| -%>
-        public function get <%= field.name %>():<%= field.type %>
+        public function get <%= field.name %>():<%= field.array_or_type %>
         {
             return _<%= field.name %>;
         }
