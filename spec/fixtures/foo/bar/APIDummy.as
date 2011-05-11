@@ -6,8 +6,8 @@ package foo.bar
 
     public class APIDummy implements APIInterface
     {
-        var _errors:Array = new Array();
-        var _dummy_success:Array = new Array();
+        private var _errors:Array = new Array();
+        private var _dummy_success:Array = new Array();
 
         public function setDummySuccess(function_name:String, success:Array):void
         {
