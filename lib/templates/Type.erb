@@ -14,6 +14,11 @@ package <%= name_space %>
             return _<%= field.name %>;
         }
 
+        public function set <%= field.name %>(<%= field.name %>:<%= field.array_or_type %>):void
+        {
+            _<%= field.name %> = <%= field.name %>;
+        }
+
         <%- end -%>
         public function <%= type.name %>(object:Object = null)
         {
@@ -29,6 +34,15 @@ package <%= name_space %>
                 <%- end -%>
                 <%- end -%>
             }
+        }
+
+        public static function create(<%= type.fields.map {|i| "#{i.name}:#{i.array_or_type}" }.join(', ') %>):<%= type.name %>
+        {
+            var instance:<%= type.name %> = new <%= type.name %>();
+            <%- type.fields.each do |field| -%>
+            instance.<%= field.name %> = <%= field.name %>;
+            <%- end -%>
+            return instance;
         }
 
         public function toString():String

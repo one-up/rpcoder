@@ -6,15 +6,36 @@ package foo.bar
     {
         private var _subject:String;
         private var _body:String;
+        private var _cc:Array;
 
         public function get subject():String
         {
             return _subject;
         }
 
+        public function set subject(subject:String):void
+        {
+            _subject = subject;
+        }
+
         public function get body():String
         {
             return _body;
+        }
+
+        public function set body(body:String):void
+        {
+            _body = body;
+        }
+
+        public function get cc():Array
+        {
+            return _cc;
+        }
+
+        public function set cc(cc:Array):void
+        {
+            _cc = cc;
         }
 
         public function Mail(object:Object = null)
@@ -23,12 +44,24 @@ package foo.bar
             {
                 _subject = object['subject'];
                 _body = object['body'];
+                _cc = new Array();
+                for each(var elem:Object in object['cc'])
+                    _cc.push(elem);
             }
+        }
+
+        public static function create(subject:String, body:String, cc:Array):Mail
+        {
+            var instance:Mail = new Mail();
+            instance.subject = subject;
+            instance.body = body;
+            instance.cc = cc;
+            return instance;
         }
 
         public function toString():String
         {
-            return [_subject, _body].join(', ');
+            return [_subject, _body, _cc].join(', ');
         }
     }
 }

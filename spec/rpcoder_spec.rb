@@ -30,6 +30,7 @@ describe "RPCoder" do
       RPCoder.type "Mail" do |t|
         t.add_field :subject, :String
         t.add_field :body,    :String
+        t.add_field :cc,      :String, {:array? => true}
       end
     end
 
