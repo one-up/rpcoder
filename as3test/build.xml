@@ -22,24 +22,13 @@
 		<mkdir dir="${report.loc}" />
 	</target>
 
-	<target name="mock_rpcoder">
+	<target name="contract">
 		<exec executable="ruby">
-			<arg line="mock_rpcoder.rb"/>
+			<arg line="contract.rb"/>
 		</exec>
 	</target>
 
-	<!-- Build and output the Main.swf-->
-	<target name="compile" depends="init,mock_rpcoder">
-		<mxmlc file="${src.loc}/Mock.mxml" output="${bin.loc}/Mock.swf">
-			<source-path path-element="${FLEX_HOME}/frameworks"/>
-			<library-path dir="${lib.loc}" append="true">
-				<include name="*.swc" />
-			</library-path>
-			<compiler.debug>false</compiler.debug>
-		</mxmlc>
-	</target>
-
-	<target name="compile_test_runner" depends="init,mock_rpcoder">
+	<target name="compile" depends="init,contract">
 		<mxmlc file="${src.test.loc}/FlexUnitRunner.mxml" output="${bin.loc}/FlexUnitRunner.swf">
 			<source-path path-element="${src.loc}" />
 			<source-path path-element="${src.test.loc}" />
@@ -51,7 +40,7 @@
 		</mxmlc>
 	</target>
 
-	<target name="test" depends="compile_test_runner">
+	<target name="test" depends="compile">
 		<!-- Execute FlexUnit tests and publish reports -->
 		<flexunit swf="${bin.loc}/FlexUnitRunner.swf"
 			toDir="${report.loc}"

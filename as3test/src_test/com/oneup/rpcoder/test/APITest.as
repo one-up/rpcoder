@@ -8,7 +8,7 @@ package com.oneup.rpcoder.test {
     import org.flexunit.async.Async;
     import org.hamcrest.core.anything;
 
-    import com.oneup.rpcoder.mock.*;
+    import com.oneup.rpcoder.generated.*;
 
     public class APITest {
         /*

@@ -1,6 +1,6 @@
 package com.oneup.rpcoder.test {
     import org.flexunit.asserts.assertEquals;
-    import com.oneup.rpcoder.mock.*;
+    import com.oneup.rpcoder.generated.*;
 
     public class TypeTest
     {
