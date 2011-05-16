@@ -19,7 +19,7 @@ package foo.bar
             return _dummy_success[function_name];
         }
 
-        public function setError(function_name:String, is_error:Boolean):void
+        public function setDummyError(function_name:String, is_error:Boolean):void
         {
             _errors[function_name] = is_error;
         }
