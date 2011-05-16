@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rpcoder}
-  s.version = "0.2.3"
+  s.version = "0.2.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["jugyo", "Toshiyuki Hirooka"]
-  s.date = %q{2011-05-12}
+  s.date = %q{2011-05-16}
   s.description = %q{Simple JSON HTTP RPC generator for as3}
   s.email = %q{toshi.hirooka@gmail.com}
   s.extra_rdoc_files = [
@@ -23,6 +23,20 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "as3test/build.xml",
+    "as3test/contract.rb",
+    "as3test/lib/as3corelib.swc",
+    "as3test/lib/flexUnitTasks-4.0.0.jar",
+    "as3test/lib/flexunit-4.0.0.swc",
+    "as3test/lib/flexunit-cilistener-4.0.0.swc",
+    "as3test/lib/flexunit-flexcoverlistener-4.0.0.swc",
+    "as3test/lib/flexunit-uilistener-4.0.0.swc",
+    "as3test/lib/hamcrest-as3-1.1.1.swc",
+    "as3test/lib/mockolate-0.9.3.swc",
+    "as3test/src_test/FlexUnitRunner.mxml",
+    "as3test/src_test/TestSuite.as",
+    "as3test/src_test/com/oneup/rpcoder/test/APITest.as",
+    "as3test/src_test/com/oneup/rpcoder/test/TypeTest.as",
     "lib/rpcoder.rb",
     "lib/rpcoder/function.rb",
     "lib/rpcoder/param.rb",
@@ -62,14 +76,12 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
       s.add_development_dependency(%q<rake>, [">= 0"])
-      s.add_development_dependency(%q<sinatra>, [">= 0"])
     else
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
       s.add_dependency(%q<rcov>, [">= 0"])
       s.add_dependency(%q<rake>, [">= 0"])
-      s.add_dependency(%q<sinatra>, [">= 0"])
     end
   else
     s.add_dependency(%q<rspec>, [">= 0"])
@@ -77,7 +89,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
     s.add_dependency(%q<rcov>, [">= 0"])
     s.add_dependency(%q<rake>, [">= 0"])
-    s.add_dependency(%q<sinatra>, [">= 0"])
   end
 end
 
