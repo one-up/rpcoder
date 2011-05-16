@@ -65,3 +65,22 @@
   	// failure
   })
 
+
+=== dummy RPC
+
+Dummy RPC works standalone. You can set anything responses at callback.
+
+  var rpc:RPCInterface = new RPCDummy();
+  (rpc as RPCDummy).setDummySuccess("getMail", [
+      Mail.create('foo', 'bar')
+  ]);
+
+  rpc.getMail(function(mail:Mail):void {
+      // success
+      // responded mail as dummy
+  }, function():void {
+      // error
+  });
+
+  // rpc.getMail() may callback as error.
+  (rpc as RPCDummy).setDummyError("getMail", true);
