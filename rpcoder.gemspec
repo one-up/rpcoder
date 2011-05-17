@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rpcoder}
-  s.version = "0.2.4"
+  s.version = "0.2.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["jugyo", "Toshiyuki Hirooka"]
-  s.date = %q{2011-05-16}
+  s.date = %q{2011-05-17}
   s.description = %q{Simple JSON HTTP RPC generator for as3}
   s.email = %q{toshi.hirooka@gmail.com}
   s.extra_rdoc_files = [
