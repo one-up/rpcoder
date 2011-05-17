@@ -27,8 +27,8 @@ package <%= name_space %>
                 <%- type.fields.each do |field| -%>
                 <%- if field.array? -%>
                 _<%= field.name %> = new Array();
-                for each(var elem:Object in object['<%= field.name %>'])
-                    _<%= field.name %>.push(<%= field.instance_creator(:elem) %>);
+                for each(var <%= field.name %>_elem:Object in object['<%= field.name %>'])
+                    _<%= field.name %>.push(<%= field.instance_creator("#{field.name}_elem") %>);
                 <%- else -%>
                 _<%= field.name %> = <%= field.instance_creator(field.name, {:object? => true}) %>;
                 <%- end -%>

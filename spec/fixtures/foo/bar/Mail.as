@@ -45,8 +45,8 @@ package foo.bar
                 _subject = object['subject'];
                 _body = object['body'];
                 _cc = new Array();
-                for each(var elem:Object in object['cc'])
-                    _cc.push(elem);
+                for each(var cc_elem:Object in object['cc'])
+                    _cc.push(cc_elem);
             }
         }
 
