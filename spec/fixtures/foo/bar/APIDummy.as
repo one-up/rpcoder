@@ -79,10 +79,23 @@ package foo.bar
             {
                 var e:FaultEvent = new FaultEvent("dummy fault");
                 var t:Object = this;
-                if (_errorHandler !== null) {
-                    _errorHandler(e, t);
+                var handler : Function;
+                if (error !== null) {
+                    handler = error;
                 } else {
-                    error(e, t);
+                    handler = _errorHandler;
+                }
+                switch ( handler.length )
+                {
+                    case 0:
+                        handler.call(this);
+                        break;
+                    case 1:
+                        handler.call(this, e);
+                        break;
+                    case 2:
+                        handler.call(this, e, t);
+                        break;
                 }
             }
             else
