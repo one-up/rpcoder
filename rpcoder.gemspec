@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["jugyo", "Toshiyuki Hirooka"]
-  s.date = %q{2011-05-17}
+  s.date = %q{2011-05-23}
   s.description = %q{Simple JSON HTTP RPC generator for as3}
   s.email = %q{toshi.hirooka@gmail.com}
   s.extra_rdoc_files = [
