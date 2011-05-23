@@ -96,7 +96,7 @@ package foo.bar
         * @success:Function
         * @error:Function
         */
-        public function getMail(id:int, foo:String, bar:Array, baz:Boolean, success:Function, error:Function):void
+        public function getMail(id:int, foo:String, bar:Array, baz:Boolean, success:Function, error:Function = null):void
         {
             var params:Object = {"foo":foo, "bar":bar, "baz":baz};
             request("GET", "/mails/" + id, params,
@@ -106,12 +106,7 @@ package foo.bar
 
 
                     success(new Mail(hash['mail']));
-                },
-                function(e:FaultEvent, t:Object):void {
-                    t = t; // FIXME: for removing warning
-                    error(e);
-                }
-            );
+                }, error);
         }
 
         /**
@@ -120,7 +115,7 @@ package foo.bar
         * @success:Function
         * @error:Function
         */
-        public function getMails(success:Function, error:Function):void
+        public function getMails(success:Function, error:Function = null):void
         {
             var params:Object = {};
             request("GET", "/mails/", params,
@@ -133,12 +128,7 @@ package foo.bar
                         mails_list.push(new Mail(mails));
 
                     success(mails_list, hash['count']);
-                },
-                function(e:FaultEvent, t:Object):void {
-                    t = t; // FIXME: for removing warning
-                    error(e);
-                }
-            );
+                }, error);
         }
 
         public function request(method:String, path:String, params:Object, success:Function, error:Function):void
@@ -152,10 +142,23 @@ package foo.bar
             token.addResponder(new AsyncResponder(
                 success,
                 function(e:FaultEvent, t:Object):void {
-                    if (_errorHandler !== null && e.statusCode >= 500) {
-                        _errorHandler(e, t);
+                    var handler : Function;
+                    if (error !== null) {
+                        handler = error;
                     } else {
-                        error(e, t);
+                        handler = _errorHandler;
+                    }
+                    switch ( handler.length )
+                    {
+                        case 0:
+                            handler.call(this);
+                            break;
+                        case 1:
+                            handler.call(this, e);
+                            break;
+                        case 2:
+                            handler.call(this, e, t);
+                            break;
                     }
                 }
             ));

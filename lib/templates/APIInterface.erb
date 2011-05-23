@@ -4,6 +4,10 @@ package <%= name_space %>
 {
     public interface <%= api_class_name %>Interface
     {
+        function get baseUrl():String;
+        function set errorHandler(handler : Function):void;
+        function get errorHandler():Function;
+
         <%- functions.each do |func| -%>
         /**
         * <%= func.description %>
@@ -15,7 +19,7 @@ package <%= name_space %>
         * @error:Function
         */
         <%-
-            params = func.params.map{|i| [i.name, i.type].join(':') } + ['success:Function', 'error:Function']
+            params = func.params.map{|i| [i.name, i.type].join(':') } + ['success:Function', 'error:Function = null']
         -%>
         function <%= func.name %>(<%= params.join(', ') %>):void;
 

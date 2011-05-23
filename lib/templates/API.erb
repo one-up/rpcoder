@@ -97,7 +97,7 @@ package <%= name_space %>
         * @error:Function
         */
         <%-
-            params = func.params.map{|i| [i.name, i.type].join(':') } + ['success:Function', 'error:Function']
+            params = func.params.map{|i| [i.name, i.type].join(':') } + ['success:Function', 'error:Function = null']
         -%>
         public function <%= func.name %>(<%= params.join(', ') %>):void
         {
@@ -128,12 +128,7 @@ package <%= name_space %>
                       end
                     -%>
                     success(<%= args.join(', ') %>);
-                },
-                function(e:FaultEvent, t:Object):void {
-                    t = t; // FIXME: for removing warning
-                    error(e);
-                }
-            );
+                }, error);
         }
 
         <%- end -%>
@@ -148,10 +143,23 @@ package <%= name_space %>
             token.addResponder(new AsyncResponder(
                 success,
                 function(e:FaultEvent, t:Object):void {
-                    if (_errorHandler !== null && e.statusCode >= 500) {
-                        _errorHandler(e, t);
+                    var handler : Function;
+                    if (error !== null) {
+                        handler = error;
                     } else {
-                        error(e, t);
+                        handler = _errorHandler;
+                    }
+                    switch ( handler.length )
+                    {
+                        case 0:
+                            handler.call(this);
+                            break;
+                        case 1:
+                            handler.call(this, e);
+                            break;
+                        case 2:
+                            handler.call(this, e, t);
+                            break;
                     }
                 }
             ));

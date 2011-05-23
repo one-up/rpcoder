@@ -6,6 +6,24 @@ package <%= name_space %>
 
     public class <%= api_class_name %>Dummy implements <%= api_class_name %>Interface
     {
+        private var _baseUrl:String;
+        private var _errorHandler : Function;
+
+        public function get baseUrl():String
+        {
+            return this._baseUrl;
+        }
+
+        public function set errorHandler(handler : Function):void
+        {
+            this._errorHandler = handler;
+        }
+
+        public function get errorHandler():Function
+        {
+            return this._errorHandler;
+        }
+
         private var _errors:Array = new Array();
         private var _dummy_success:Array = new Array();
 
@@ -40,7 +58,7 @@ package <%= name_space %>
         * @error:Function
         */
         <%-
-            params = func.params.map{|i| [i.name, i.type].join(':') } + ['success:Function', 'error:Function']
+            params = func.params.map{|i| [i.name, i.type].join(':') } + ['success:Function', 'error:Function = null']
         -%>
         public function <%= func.name %>(<%= params.join(', ') %>):void
         {
@@ -52,7 +70,13 @@ package <%= name_space %>
         {
             if ( isError(function_name) )
             {
-                error(new FaultEvent("dummy fault"));
+                var e:FaultEvent = new FaultEvent("dummy fault");
+                var t:Object = this;
+                if (_errorHandler !== null) {
+                    _errorHandler(e, t);
+                } else {
+                    error(e, t);
+                }
             }
             else
             {

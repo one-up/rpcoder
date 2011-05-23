@@ -6,6 +6,24 @@ package foo.bar
 
     public class APIDummy implements APIInterface
     {
+        private var _baseUrl:String;
+        private var _errorHandler : Function;
+
+        public function get baseUrl():String
+        {
+            return this._baseUrl;
+        }
+
+        public function set errorHandler(handler : Function):void
+        {
+            this._errorHandler = handler;
+        }
+
+        public function get errorHandler():Function
+        {
+            return this._errorHandler;
+        }
+
         private var _errors:Array = new Array();
         private var _dummy_success:Array = new Array();
 
@@ -39,7 +57,7 @@ package foo.bar
         * @success:Function
         * @error:Function
         */
-        public function getMail(id:int, foo:String, bar:Array, baz:Boolean, success:Function, error:Function):void
+        public function getMail(id:int, foo:String, bar:Array, baz:Boolean, success:Function, error:Function = null):void
         {
             requestDummy('getMail', success, error);
         }
@@ -50,7 +68,7 @@ package foo.bar
         * @success:Function
         * @error:Function
         */
-        public function getMails(success:Function, error:Function):void
+        public function getMails(success:Function, error:Function = null):void
         {
             requestDummy('getMails', success, error);
         }
@@ -59,7 +77,13 @@ package foo.bar
         {
             if ( isError(function_name) )
             {
-                error(new FaultEvent("dummy fault"));
+                var e:FaultEvent = new FaultEvent("dummy fault");
+                var t:Object = this;
+                if (_errorHandler !== null) {
+                    _errorHandler(e, t);
+                } else {
+                    error(e, t);
+                }
             }
             else
             {

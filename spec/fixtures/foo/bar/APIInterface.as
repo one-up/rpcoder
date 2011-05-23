@@ -4,6 +4,10 @@ package foo.bar
 {
     public interface APIInterface
     {
+        function get baseUrl():String;
+        function set errorHandler(handler : Function):void;
+        function get errorHandler():Function;
+
         /**
         * get mail
         *
@@ -14,7 +18,7 @@ package foo.bar
         * @success:Function
         * @error:Function
         */
-        function getMail(id:int, foo:String, bar:Array, baz:Boolean, success:Function, error:Function):void;
+        function getMail(id:int, foo:String, bar:Array, baz:Boolean, success:Function, error:Function = null):void;
 
         /**
         * get mails
@@ -22,7 +26,7 @@ package foo.bar
         * @success:Function
         * @error:Function
         */
-        function getMails(success:Function, error:Function):void;
+        function getMails(success:Function, error:Function = null):void;
 
     }
 }
